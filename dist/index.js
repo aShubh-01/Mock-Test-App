@@ -1,0 +1,22 @@
+"use strict";
+var __importDefault = (this && this.__importDefault) || function (mod) {
+    return (mod && mod.__esModule) ? mod : { "default": mod };
+};
+Object.defineProperty(exports, "__esModule", { value: true });
+const express_1 = __importDefault(require("express"));
+const cors_1 = __importDefault(require("cors"));
+const dotenv_1 = __importDefault(require("dotenv"));
+const path_1 = __importDefault(require("path"));
+const databaseCon_1 = require("./databaseCon");
+const controllers_1 = require("./controllers");
+dotenv_1.default.config({ path: path_1.default.join(__dirname, '../.env') });
+const app = (0, express_1.default)();
+const port = process.env.PORT || 3000;
+app.use(express_1.default.json());
+app.use((0, cors_1.default)());
+app.post('/signup', controllers_1.addUser);
+app.post('/add-questions', controllers_1.addQuestions);
+app.post('/generate', controllers_1.generateTest);
+app.post('/submit', controllers_1.submitTest);
+(0, databaseCon_1.connectDatabase)();
+app.listen(port, () => console.log(`Running on port ${port}`));
