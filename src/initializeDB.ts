@@ -1,5 +1,9 @@
 import { Question } from "./schemas";
 import mongoose from "mongoose";
+import dotenv from 'dotenv';
+import path from 'path';
+
+dotenv.config({ path: path.join(__dirname, '../.env')});
 
 async function addQuestions () {                            // ADD SOME DUMMY QUESTION ON BUILD TIME
     const dummyQuestions = [
